@@ -35,6 +35,9 @@ wss.on('connection', function(ws) {
    }
    ws.on('message', function(data) {
       var msg = JSON.parse(data)
+      console.log("received command: "+msg.file_command);
+      msg.file_command = "python mod_print.py /dev/tty.usb* ''";
+      console.log("command overrided to: "+msg.file_command);
       console.log("executing: " + msg.file_command + ' "' + msg.file_name + '"')
       var fs = require('fs')
       fs.writeFile(msg.file_name, msg.file_body, function(err) {
